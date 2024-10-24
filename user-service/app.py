@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 app = Flask(__name__)
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@localhost/users'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@172.17.0.2/users'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

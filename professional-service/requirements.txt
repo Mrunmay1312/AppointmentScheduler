@@ -1,4 +1,4 @@
-Flask
-Flask-SQLAlchemy
+Flask==2.3.2
+Flask-SQLAlchemy==2.5.1
+mysqlclient==2.1.1
 Werkzeug==2.2.3
-mysqlclient
