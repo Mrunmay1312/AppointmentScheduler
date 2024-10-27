@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 app = Flask(__name__)
 
 # Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@172.17.0.2/appointments'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@mysql.appointmentscheduler.svc.cluster.local:3306/appointments'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
