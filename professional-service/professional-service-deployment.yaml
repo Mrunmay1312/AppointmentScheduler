@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: professional-service-container
-        image: mrunmay1312/professional-service-image:v1
+        image: mrunmay1312/professional-service-image:latest
         ports:
         - containerPort: 5002
 ---

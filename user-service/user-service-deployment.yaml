@@ -4,7 +4,7 @@ metadata:
   name: user-service
   namespace: appointmentscheduler
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: user-service
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: user-service-container
-        image: mrunmay1312/user-service-image:v1
+        image: mrunmay1312/user-service-image:latest
         ports:
         - containerPort: 5001
 ---

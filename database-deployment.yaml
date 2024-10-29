@@ -27,7 +27,11 @@ metadata:
   name: mysql
   namespace: appointmentscheduler
 spec:
-  ports:
-  - port: 3306
   selector:
     app: mysql
+  ports:
+    - port: 3306           # The port that MySQL is listening on inside the container
+      targetPort: 3306      # Target port on the container
+      protocol: TCP
+  type: ClusterIP           # Exposes the MySQL service only within the Kubernetes cluster
+
