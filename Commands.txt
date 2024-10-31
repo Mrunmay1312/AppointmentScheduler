@@ -1,0 +1,49 @@
+Docker deployment
+# Running mysql database container
+
+docker run -d  --name mysql-container  -e MYSQL_ROOT_PASSWORD=password  -e MYSQL_DATABASE=users -v C:\Users\Mrunmay\Documents\AppointmentScheduler\databases.sql:/docker-entrypoint-initdb.d/databases.sql  -p 3306:3306  mysql:8.0
+
+#Building docker images
+
+docker build -t user-service-image .
+docker build -t professional-service-image .
+docker build -t appointment-service-image .
+docker build -t ui-service-image .
+
+#Running services containers
+docker run -d --name user-service -p 5001:5001 user-service-image  
+docker run -d --name professional-service -p 5002:5002 professional-service-image
+docker run -d --name appointment-service -p 5003:5003 appointment-service-image
+docker run -d --name ui-service -p 5004:5004 ui-service-image
+
+
+Kubernetes deployment
+
+#Minikube initialisation
+minikube start --driver=docker
+minikube minikube addons enable metrics-server
+minikube dashboard
+
+#Create namespace for application
+kubectl apply -f namespace.yaml
+
+#Change current namespace
+kubectl config set-context --current --namespace=appointmentscheduler
+
+#Create database deployment
+kubectl apply -f database-deployment.yaml
+
+#ConfigMap for database.sql
+kubectl create configmap init-sql --from-file=init.sql=C:\Users\Mrunmay\Documents\Scalablesystems\AppointmentScheduler\databases.sql -n appointmentscheduler
+
+#Running database import job.
+kubectl apply -f database-import-job.yaml
+
+#Create deployments
+kubectl apply -f user-service-deployment.yaml
+kubectl apply -f professional-service-deployment.yaml
+kubectl apply -f appointment-service-deployment.yaml
+kubectl apply -f ui-service-deployment.yaml
+
+#Accessing ui service
+minikube service ui-service -n appointmentscheduler

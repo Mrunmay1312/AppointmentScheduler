@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-service
+  namespace: appointmentscheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui-service
+  template:
+    metadata:
+      labels:
+        app: ui-service
+    spec:
+      containers:
+      - name: ui-service-container
+        image: mrunmay1312/ui-service-image:latest
+        ports:
+        - containerPort: 5004
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui-service
+  namespace: appointmentscheduler
+spec:
+  type: NodePort
+  selector:
+    app: ui-service
+  ports:
+    - protocol: TCP
+      port: 5004
+      targetPort: 5004
+      nodePort: 30004  # Optional: Specify a fixed node port, or let Kubernetes assign one
