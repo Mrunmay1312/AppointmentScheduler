@@ -1,0 +1,19 @@
+Docker deployment
+# Running mysql database container
+
+docker run -d  --name mysql-container  -e MYSQL_ROOT_PASSWORD=password  -e MYSQL_DATABASE=users -v C:\Users\Mrunmay\Documents\AppointmentScheduler\databases.sql:/docker-entrypoint-initdb.d/databases.sql  -p 3306:3306  mysql:8.0
+
+#Building docker images
+
+docker build -t user-service-image .
+docker build -t professional-service-image .
+docker build -t appointment-service-image .
+docker build -t ui-service-image .
+
+#Running services containers
+docker run -d --name user-service -p 5001:5001 user-service-image  
+docker run -d --name professional-service -p 5002:5002 professional-service-image
+docker run -d --name appointment-service -p 5003:5003 appointment-service-image
+docker run -d --name ui-service -p 5004:5004 ui-service-image
+
+
